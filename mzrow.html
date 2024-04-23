@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>マズローの欲求</title>
+  <style>
+    .category {
+      font-weight: bold;
+    }
+
+    .category label {
+      font-size: 150%;
+    }
+
+    .category span {
+      font-size: 150%;
+    }
+
+    .subcategory {
+      margin-left: 22px;
+    }
+
+    .subcategory span {
+      font-size: 100%;
+    }
+
+    .subcategory label {
+      font-size: 100%;
+    }
+
+    .subcategory input[type="range"] {
+      -webkit-appearance: none;
+      /* 🚩これ無しだとスタイルがほぼ全く反映されないので注意 */
+      appearance: none;
+      cursor: pointer;
+      /* カーソルを分かりやすく */
+      outline: none;
+      /* スライダーのアウトラインは見た目がキツイので消す */
+      height: 33px;
+      /* バーの高さ */
+      width: 40%;
+      /* バーの幅 */
+      background: #8acdff;
+      /* バーの背景色 */
+      border-radius: 10px;
+      /* バーの両端の丸み */
+      border: solid 3px #000000;
+      /* バー周囲の線 */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>マズローの欲求5段階説スライダー</h1>
+  <p>各欲求の満足度についてスライダーで調整してください。</p>
+  <!-- TODO:spanのマージン調整100%担ったときにカクつかないようにする -->
+  <!-- TODO:sessionStorageを設定する -->
+  <div class="category">
+    <span id="self-transcendence-value">100%</span>
+    <label for="self-transcendence">自己超越の欲求</label>
+    <div class="subcategory">
+      <span id="community-development-value">100%</span>
+      <input type="range" id="community-development" name="community-development" min="0" max="100" value="100" />
+      <label for="community-development">コミュニティーの発展</label>
+    </div>
+    <div class="subcategory">
+      <span id="neighbor-love-value">100%</span>
+      <input type="range" id="neighbor-love" name="neighbor-love" min="0" max="100" value="100" />
+      <label for="neighbor-love">隣人愛、慈善活動や寄付</label>
+    </div>
+  </div>
+  <div class="category">
+    <span id="self-actualization-value">100%</span>
+    <label for="self-actualization">自己実現の欲求</label>
+    <div class="subcategory">
+      <span id="growth-value">100%</span>
+      <input type="range" id="growth" name="growth" min="0" max="100" value="100" />
+      <label for="growth">道徳</label>
+    </div>
+    <div class="subcategory">
+      <span id="creativity-value">100%</span>
+      <input type="range" id="creativity" name="creativity" min="0" max="100" value="100" />
+      <label for="creativity">創造性</label>
+    </div>
+    <div class="subcategory">
+      <span id="desire-for-spontaneous-action-value">100%</span>
+      <input type="range" id="desire-for-spontaneous-action" name="desire-for-spontaneous-action" min="0" max="100"
+        value="100" />
+      <label for="desire-for-spontaneous-action">自発性行動欲</label>
+    </div>
+    <div class="subcategory">
+      <span id="Problem-solving-growth-and-learning-value">100%</span>
+      <input type="range" id="Problem-solving-growth-and-learning" name="Problem-solving-growth-and-learning" min="0"
+        max="100" value="100" />
+      <label for="Problem-solving-growth-and-learning">問題解決や成長や学習</label>
+    </div>
+    <div class="subcategory">
+      <span id="acceptance-of-fact-value">100%</span>
+      <input type="range" id="acceptance-of-fact" name="acceptance-of-fact" min="0" max="100" value="100" />
+      <label for="acceptance-of-fact">事実の受諾</label>
+    </div>
+  </div>
+  <div class="category">
+    <span id="esteem-value">100%</span>
+    <label for="esteem">自尊欲求</label>
+    <div class="subcategory">
+      <span id="selfRespect-value">100%</span>
+      <input type="range" id="selfRespect" name="selfRespect" min="0" max="100" value="100" />
+      <label for="selfRespect">自尊心</label>
+    </div>
+    <div class="subcategory">
+      <span id="confidence-value">100%</span>
+      <input type="range" id="confidence" name="confidence" min="0" max="100" value="100" />
+      <label for="confidence">自信</label>
+    </div>
+    <div class="subcategory">
+      <span id="achievement-value">100%</span>
+      <input type="range" id="achievement" name="achievement" min="0" max="100" value="100" />
+      <label for="achievement">達成</label>
+    </div>
+    <div class="subcategory">
+      <span id="respect-and-approval-from-others-value">100%</span>
+      <input type="range" id="respect-and-approval-from-others" name="respect-and-approval-from-others" min="0"
+        max="100" value="100" />
+      <label for="respect-and-approval-from-others">他人からの尊敬や承認</label>
+    </div>
+    <div class="category">
+      <span id="love-value">100%</span>
+      <label for="love">愛情と所属欲求</label>
+      <div class="subcategory">
+        <span id="friendship-value">100%</span>
+        <input type="range" id="friendship" name="friendship" min="0" max="100" value="100" />
+        <label for="friendship">友情</label>
+      </div>
+      <div class="subcategory">
+        <span id="intimacy-value">100%</span>
+        <input type="range" id="intimacy" name="intimacy" min="0" max="100" value="100" />
+        <label for="intimacy">親密な関係</label>
+      </div>
+      <div class="subcategory">
+        <span id="family-value">100%</span>
+        <input type="range" id="family" name="family" min="0" max="100" value="100" />
+        <label for="family">家族関係</label>
+      </div>
+      <div class="subcategory">
+        <span id="desire-for-social-connection-value">100%</span>
+        <input type="range" id="desire-for-social-connection" name="desire-for-social-connection" min="0" max="100"
+          value="100" />
+        <label for="desire-for-social-connection">社会的繋がり欲求</label>
+      </div>
+    </div>
+    <div class="category">
+      <span id="safety-value">100%</span>
+      <label for="safety">安全欲求</label>
+      <div class="subcategory">
+        <span id="personal-safety-value">100%</span>
+        <input type="range" id="personal-safety" name="personal-safety" min="0" max="100" value="100" />
+        <label for="personal-safety">身の安全</label>
+      </div>
+      <div class="subcategory">
+        <span id="jobSecurity-value">100%</span>
+        <input type="range" id="jobSecurity" name="jobSecurity" min="0" max="100" value="100" />
+        <label for="jobSecurity">職の安定</label>
+      </div>
+      <div class="subcategory">
+        <span id="health-value">100%</span>
+        <input type="range" id="health" name="health" min="0" max="100" value="100" />
+        <label for="health">健康の安心</label>
+      </div>
+      <div class="subcategory">
+        <span id="financialSecurity-value">100%</span>
+        <input type="range" id="financialSecurity" name="financialSecurity" min="0" max="100" value="100" />
+        <label for="financialSecurity">財産の安心</label>
+      </div>
+      <div class="subcategory">
+        <span id="suppliesSecurity-value">100%</span>
+        <input type="range" id="suppliesSecurity" name="suppliesSecurity" min="0" max="100" value="100" />
+        <label for="suppliesSecurity">物資の安心</label>
+      </div>
+    </div>
+    <div class="category">
+      <span id="physiological-value">100%</span>
+      <label for="physiological">生理的欲求</label>
+      <div class="subcategory">
+        <span id="appetite-value">100%</span>
+        <input type="range" id="appetite" name="appetite" min="0" max="100" value="100" />
+        <label for="appetite">食欲</label>
+      </div>
+      <div class="subcategory">
+        <span id="sexual-desire-value">100%</span>
+        <input type="range" id="sexual-desire" name="sexual-desire" min="0" max="100" value="100" />
+        <label for="sexual-desire">性欲</label>
+      </div>
+      <div class="subcategory">
+        <span id="desire-for-sleep-value">100%</span>
+        <input type="range" id="desire-for-sleep" name="desire-for-sleep" min="0" max="100" value="100" />
+        <label for="desire-for-sleep">睡眠欲</label>
+      </div>
+      <div class="subcategory">
+        <span id="thirsty-value">100%</span>
+        <input type="range" id="thirsty" name="thirsty" min="0" max="100" value="100" />
+        <label for="thirsty">喉の乾き</label>
+      </div>
+      <div class="subcategory">
+        <span id="Desire-to-excrete-value">100%</span>
+        <input type="range" id="Desire-to-excrete" name="Desire-to-excrete" min="0" max="100" value="100" />
+        <label for="Desire-to-excrete">排泄欲</label>
+      </div>
+      <div class="subcategory">
+        <span id="bathing">100%</span>
+        <input type="range" id="bathing" name="bathing" min="0" max="100" value="100" />
+        <label for="bathing">入浴欲</label>
+      </div>
+      <div class="subcategory">
+        <span id="breathing-value">100%</span>
+        <input type="range" id="breathing" name="breathing" min="0" max="100" value="100" />
+        <label for="breathing">息苦しさ、呼吸</label>
+      </div>
+      <div class="subcategory">
+        <span id="temperature-humidity-comfort-value">100%</span>
+        <input type="range" id="temperature-humidity-comfort" name="temperature-humidity-comfort" min="0" max="100"
+          value="100" />
+        <label for="temperature-humidity-comfort">温度湿度快適さ</label>
+      </div>
+    </div>
+    <script>
+      // すべてのカテゴリを選択
+      const categories = document.querySelectorAll('.category');
+      categories.forEach(category => {
+        // 各カテゴリ内のサブカテゴリを選択
+        const subcategories = category.querySelectorAll('.subcategory');
+        // サブカテゴリの総数を取得
+        const totalSubcategories = subcategories.length;
+        // 各カテゴリ内のスライダーを選択
+        const sliders = category.querySelectorAll('input[type="range"]');
+        sliders.forEach(slider => {
+          // スライダーの値が変更されたときに実行
+          slider.addEventListener('input', function () {
+            // 各カテゴリのスライダーの値の合計を計算
+            let total = 0;
+            subcategories.forEach(subcategory => {
+              total += subcategory.querySelector('input[type="range"]').valueAsNumber;
+              // スライダーの値をパーセンテージで表示
+              subcategory.querySelector('span[id$="-value"]').textContent = (subcategory.querySelector('input[type="range"]').valueAsNumber * 100 / 100).toFixed(0) + '%';
+            });
+            // 各カテゴリの平均スライダーの値を計算
+            const average = total / totalSubcategories;
+            // スライダーの値をパーセンテージで表示
+            category.querySelector('span[id$="-value"]').textContent = (average * 100 / 100).toFixed(0) + '%';
+          });
+        });
+      });
+    </script>
+</body>
+
+</html>
