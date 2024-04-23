@@ -54,7 +54,6 @@
   <h1>マズローの欲求5段階説スライダー</h1>
   <p>各欲求の満足度についてスライダーで調整してください。</p>
   <!-- TODO:spanのマージン調整100%担ったときにカクつかないようにする -->
-  <!-- TODO:sessionStorageを設定する -->
   <div class="category">
     <span id="self-transcendence-value">100%</span>
     <label for="self-transcendence">自己超越の欲求</label>
@@ -223,33 +222,51 @@
         <label for="temperature-humidity-comfort">温度湿度快適さ</label>
       </div>
     </div>
+
     <script>
-      // すべてのカテゴリを選択
-      const categories = document.querySelectorAll('.category');
-      categories.forEach(category => {
-        // 各カテゴリ内のサブカテゴリを選択
-        const subcategories = category.querySelectorAll('.subcategory');
-        // サブカテゴリの総数を取得
-        const totalSubcategories = subcategories.length;
-        // 各カテゴリ内のスライダーを選択
-        const sliders = category.querySelectorAll('input[type="range"]');
-        sliders.forEach(slider => {
-          // スライダーの値が変更されたときに実行
-          slider.addEventListener('input', function () {
-            // 各カテゴリのスライダーの値の合計を計算
-            let total = 0;
-            subcategories.forEach(subcategory => {
-              total += subcategory.querySelector('input[type="range"]').valueAsNumber;
-              // スライダーの値をパーセンテージで表示
-              subcategory.querySelector('span[id$="-value"]').textContent = (subcategory.querySelector('input[type="range"]').valueAsNumber * 100 / 100).toFixed(0) + '%';
-            });
-            // 各カテゴリの平均スライダーの値を計算
-            const average = total / totalSubcategories;
-            // スライダーの値をパーセンテージで表示
-            category.querySelector('span[id$="-value"]').textContent = (average * 100 / 100).toFixed(0) + '%';
-          });
-        });
+      const updateValues = () => {
+        const categories = document.querySelectorAll('.category');
+        for (const category of categories) {
+          let categoryTotal = 0;
+          const subcategories = category.querySelectorAll('.subcategory');
+          for (const subcategory of subcategories) {
+            const input = subcategory.querySelector('input');
+            const value = parseInt(input.value);
+            categoryTotal += value;
+            const span = subcategory.querySelector('span');
+            span.textContent = `${value}%`;
+            input.setAttribute('title', `${value}%`);
+
+            // sessionStorageに値を保存
+            const key = input.id;
+            sessionStorage.setItem(key, value);
+          }
+          // サブカテゴリの平均を使用してカテゴリ値を更新
+          const categorySpan = category.querySelector('span');
+          const categoryAverage = categoryTotal / subcategories.length;
+          // 小数点以下0桁で表示
+          categorySpan.textContent = `${categoryAverage.toFixed(0)}%`;
+        }
+      };
+      // ページ読み込み時に初期値をロード
+      document.addEventListener('DOMContentLoaded', () => {
+        const categories = document.querySelectorAll('.category');
+        for (const category of categories) {
+          const subcategories = category.querySelectorAll('.subcategory');
+          for (const subcategory of subcategories) {
+            const input = subcategory.querySelector('input');
+            const key = input.id;
+            const storedValue = sessionStorage.getItem(key);
+            if (storedValue) {
+              input.value = storedValue;
+            }
+          }
+        }
+        // 初期値を反映
+        updateValues();
       });
+      // スライダーの値が変更されたときに更新
+      document.addEventListener('input', updateValues);
     </script>
 </body>
 
